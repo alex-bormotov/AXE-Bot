@@ -200,10 +200,12 @@ def decrypt_licence_time():
 
 def check_licence_is_expire():
 
-    if compare_licence_hashes_is_same() == False or decrypt_licence_time() == "Null":
-        return True
-    else:
-        if dt.datetime.utcnow() > dt.datetime.fromisoformat(decrypt_licence_time()):
-            return True
-        else:
-            return False
+    return False
+
+    # if compare_licence_hashes_is_same() == False or decrypt_licence_time() == "Null":
+    #     return True
+    # else:
+    #     if dt.datetime.utcnow() > dt.datetime.fromisoformat(decrypt_licence_time()):
+    #         return True
+    #     else:
+    #         return False
