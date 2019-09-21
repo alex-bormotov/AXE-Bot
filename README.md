@@ -37,10 +37,6 @@
 
 ---
 
-> [FAQ](FAQ.md)
-
-> [Demo](FAQ.md#what-limitation-demo-version-has)
-
 > [Install](#install)
 
 > [Config](#Config)
