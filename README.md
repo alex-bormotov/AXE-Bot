@@ -107,7 +107,7 @@ git clone https://github.com/alex-bormotov/AXE-Bot-open
 ```
 
 ```bash
-cd AXE-Bot/config
+cd AXE-Bot-open/config
 ```
 
 ```bash
@@ -141,7 +141,7 @@ git clone https://github.com/alex-bormotov/AXE-Bot-open
 ```
 
 ```bash
-cd AXE-Bot
+cd AXE-Bot-open
 ```
 
 ```bash
@@ -174,7 +174,7 @@ python3 bot.py &
 > For Docker:
 
 ```bash
-cd AXE-Bot
+cd AXE-Bot-open
 ```
 
 ```bash
@@ -208,7 +208,7 @@ sudo docker run axe-bot &
 > For Ubuntu, without Docker:
 
 ```bash
-cd AXE-Bot
+cd AXE-Bot-open
 ```
 
 ```bash
