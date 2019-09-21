@@ -40,8 +40,8 @@ def demo_or_full(stake_per_trade, coin_2):
     #
     #     else:
     #         return stake_per_trade
-
-
-    except Exception as e:
-        if show_error == "YES":
-            notificator(str(e))
+    # 
+    #
+    # except Exception as e:
+    #     if show_error == "YES":
+    #         notificator(str(e))
