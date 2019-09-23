@@ -58,6 +58,14 @@ def get_bars(symbol, interval):
                 try:
                     data = json.loads(requests.get(url, headers=headers).text)
                     break
+                #except requests.exceptions.RequestException:
+                #    continue
+                except requests.exceptions.HTTPError:
+                    continue
+                except requests.exceptions.ConnectionError:
+                    continue
+                except requests.exceptions.Timeout:
+                    continue
                 except requests.exceptions.RequestException:
                     continue
 
@@ -84,9 +92,21 @@ def get_bars(symbol, interval):
             df_global = df
             return df_global
 
-        except requests.exceptions.RequestException as e:
+        # except requests.exceptions.RequestException as e:
+        #     if show_error == "YES":
+        #         notificator(str(e))
+        except requests.exceptions.HTTPError as e:
             if show_error == "YES":
                 notificator(str(e))
+        except requests.exceptions.ConnectionError as e:
+            if show_error == "YES":
+                notificator(str(e))
+        except requests.exceptions.Timeout as e:
+            if show_error == "YES":
+                notificator(str(e))
+        except requests.exceptions.RequestException as e:
+
+
         except ccxt.NetworkError as e:
             if show_error == "YES":
                 notificator(str(e))
