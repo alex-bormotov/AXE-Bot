@@ -1,4 +1,4 @@
-# AXE Bot - Crypto Trading Bot
+# AXE Bot - Crypto Trading Bot for Binance.com
 
 ## Full version for FREE (open source) since 09.21.2019
 
