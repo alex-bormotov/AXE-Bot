@@ -20,7 +20,7 @@ debug = "NO"
 buy_indicators_type = get_config()["buy_indicators_type"]
 sell_indicators_type = get_config()["sell_indicators_type"]
 
-indicators_check_interval = 0.5
+indicators_check_interval = 5.0
 
 indicators_bb_period = int(get_config()["indicators_bb_period"])
 indicators_rsi_period = int(get_config()["indicators_rsi_period"])
