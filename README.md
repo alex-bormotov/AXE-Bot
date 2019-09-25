@@ -103,11 +103,11 @@ sudo apt-get install docker.io git
 ```
 
 ```bash
-git clone https://github.com/alex-bormotov/AXE-Bot-open
+git clone https://github.com/alex-bormotov/AXE-Bot
 ```
 
 ```bash
-cd AXE-Bot-open/config
+cd AXE-Bot/config
 ```
 
 ```bash
@@ -137,11 +137,11 @@ sudo apt install python3-pip git
 ```
 
 ```bash
-git clone https://github.com/alex-bormotov/AXE-Bot-open
+git clone https://github.com/alex-bormotov/AXE-Bot
 ```
 
 ```bash
-cd AXE-Bot-open
+cd AXE-Bot
 ```
 
 ```bash
@@ -174,7 +174,7 @@ python3 bot.py &
 > For Docker:
 
 ```bash
-cd AXE-Bot-open
+cd AXE-Bot
 ```
 
 ```bash
@@ -208,7 +208,7 @@ sudo docker run axe-bot &
 > For Ubuntu, without Docker:
 
 ```bash
-cd AXE-Bot-open
+cd AXE-Bot
 ```
 
 ```bash
