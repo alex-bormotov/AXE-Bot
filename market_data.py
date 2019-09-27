@@ -47,9 +47,11 @@ def get_bars(symbol, interval):
 
     if df_load_already == False:
 
+        root_url = "https://api.binance.com/api/v1/klines"
+
         try:
             url = root_url + "?symbol=" + symbol + "&interval=" + interval
-            
+
             while True:
                 data = json.loads(requests.get(url).text)
 
@@ -58,7 +60,6 @@ def get_bars(symbol, interval):
                 else:
                     time.sleep(5)
                     continue
-
 
             df = pd.DataFrame(data)
             df.columns = [
