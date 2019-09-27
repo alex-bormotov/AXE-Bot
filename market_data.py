@@ -48,24 +48,17 @@ def get_bars(symbol, interval):
     if df_load_already == False:
 
         try:
-            headers = requests.utils.default_headers()
-            headers[
-                "User-Agent"
-            ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/56.0.2924.87 Safari/537.36"
-            root_url = "https://api.binance.com/api/v1/klines"
             url = root_url + "?symbol=" + symbol + "&interval=" + interval
+            
             while True:
-                try:
-                    data = json.loads(requests.get(url, headers=headers).text)
+                data = json.loads(requests.get(url).text)
+
+                if data != None:
                     break
-                except requests.exceptions.HTTPError:
+                else:
+                    time.sleep(5)
                     continue
-                except requests.exceptions.ConnectionError:
-                    continue
-                except requests.exceptions.Timeout:
-                    continue
-                except requests.exceptions.RequestException:
-                    continue
+
 
             df = pd.DataFrame(data)
             df.columns = [
