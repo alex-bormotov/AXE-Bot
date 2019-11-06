@@ -52,11 +52,13 @@ def get_bars(symbol, interval):
         try:
             url = root_url + "?symbol=" + symbol + "&interval=" + interval
             headers = requests.utils.default_headers()
-            headers["User-Agent"] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
+            headers[
+                "User-Agent"
+            ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
             while True:
-                data = json.loads(requests.get(url, headers=headers).text)
-                if data != None:
+                if requests.get(url, headers=headers).ok:
+                    data = json.loads(requests.get(url, headers=headers).text)
                     break
                 else:
                     time.sleep(5)
