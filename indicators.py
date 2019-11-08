@@ -12,6 +12,7 @@ from ignore_signals import (
     ignore_sell_signal_times,
     ingnore_signal_time,
 )
+from human import number_for_human
 
 show_error = "YES"
 debug = "NO"
@@ -117,7 +118,7 @@ def get_indicators_signal(coin, coin_2):
                         + str(coin_pair_for_get_bars)
                         + "\n"
                         + "Price "
-                        + str(coin_price)
+                        + str(number_for_human(coin_price))
                         + "\n"
                         + "BB low "
                         + str(bb_low)[:9]
@@ -236,7 +237,7 @@ def get_indicators_signal(coin, coin_2):
                         + str(coin_pair_for_get_bars)
                         + "\n"
                         + "Price "
-                        + str(coin_price)
+                        + str(number_for_human(coin_price))
                         + "\n"
                         + "BB low "
                         + str(bb_low)[:9]
@@ -334,7 +335,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                         + str(coin_pair_for_get_bars)
                         + "\n"
                         + "Price "
-                        + str(coin_price)
+                        + str(number_for_human(coin_price))
                         + "\n"
                         + "BB up "
                         + str(bb_up)[:9]
@@ -477,7 +478,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                         + str(coin_pair_for_get_bars)
                         + "\n"
                         + "Price "
-                        + str(coin_price)
+                        + str(number_for_human(coin_price))
                         + "\n"
                         + "BB up "
                         + str(bb_up)[:9]
