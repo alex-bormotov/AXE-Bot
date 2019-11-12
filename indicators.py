@@ -121,7 +121,7 @@ def get_indicators_signal(coin, coin_2):
                         + str(number_for_human(coin_price))
                         + "\n"
                         + "BB low "
-                        + str(bb_low)[:9]
+                        + str(number_for_human(bb_low))[:9]
                         + "\n"
                         + "RSI "
                         + str(rsi_data_now)[:9]
@@ -240,7 +240,7 @@ def get_indicators_signal(coin, coin_2):
                         + str(number_for_human(coin_price))
                         + "\n"
                         + "BB low "
-                        + str(bb_low)[:9]
+                        + str(number_for_human(bb_low))[:9]
                         + "\n"
                         + "Timeframe "
                         + str(buy_indicators_timeframe)
@@ -338,7 +338,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                         + str(number_for_human(coin_price))
                         + "\n"
                         + "BB up "
-                        + str(bb_up)[:9]
+                        + str(number_for_human(bb_up))[:9]
                         + "\n"
                         + "RSI "
                         + str(rsi_data_now)[:9]
@@ -481,7 +481,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                         + str(number_for_human(coin_price))
                         + "\n"
                         + "BB up "
-                        + str(bb_up)[:9]
+                        + str(number_for_human(bb_up))[:9]
                         + "\n"
                         + "Timeframe "
                         + str(sell_indicators_timeframe)
