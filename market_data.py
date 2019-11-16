@@ -41,36 +41,28 @@ def get_bars(symbol, interval):
             "User-Agent"
         ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
-        while True:
-            req_session.mount(url, HTTPAdapter(max_retries=19))
-            request = req_session.get(url, headers=headers)
+        req_session.mount(url, HTTPAdapter(max_retries=1000000))
+        data = req_session.get(json.loads(url, headers=headers).text)
 
-            if request.ok and request.text != None:
-                df = pd.DataFrame(json.loads(request.text))
-                df.columns = [
-                    "open_time",
-                    "open",
-                    "high",
-                    "low",
-                    "close",
-                    "volume",
-                    "close_time",
-                    "qav",
-                    "num_trades",
-                    "taker_base_vol",
-                    "taker_quote_vol",
-                    "ignore",
-                ]
-                df.index = [
-                    dt.datetime.fromtimestamp(x / 1000.0) for x in df.close_time
-                ]
-                df.open = df.open.astype(float)
-                df.close = df.close.astype(float)
-                return df
-                break
-            else:
-                time.sleep(5)
-                continue
+        df = pd.DataFrame(data)
+        df.columns = [
+            "open_time",
+            "open",
+            "high",
+            "low",
+            "close",
+            "volume",
+            "close_time",
+            "qav",
+            "num_trades",
+            "taker_base_vol",
+            "taker_quote_vol",
+            "ignore",
+        ]
+        df.index = [dt.datetime.fromtimestamp(x / 1000.0) for x in df.close_time]
+        df.open = df.open.astype(float)
+        df.close = df.close.astype(float)
+        return df
 
     except Exception as e:
         if show_error == "YES":
