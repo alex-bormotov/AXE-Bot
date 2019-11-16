@@ -14,7 +14,6 @@ exchange = exchange()
 
 
 def check_coin_price(coin_pair):
-
     try:
         last_price = exchange.fetch_ticker(coin_pair)["last"]
         return last_price
@@ -31,7 +30,6 @@ def check_coin_price(coin_pair):
 
 
 def get_bars(symbol, interval):
-
     root_url = "https://api.binance.com/api/v1/klines"
 
     try:
@@ -42,11 +40,10 @@ def get_bars(symbol, interval):
         ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
         while True:
-            state = requests.get(url, headers=headers).ok
-            data = json.loads(requests.get(url, headers=headers).text)
+            request = requests.get(url, headers=headers)
 
-            if state == True and data != None:
-                df = pd.DataFrame(data)
+            if request.ok and request.text != None:
+                df = pd.DataFrame(json.loads(request.text))
                 df.columns = [
                     "open_time",
                     "open",
