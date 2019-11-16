@@ -38,7 +38,7 @@ def get_bars(symbol, interval):
         url = root_url + "?symbol=" + symbol + "&interval=" + interval
 
         req_session.mount(url, HTTPAdapter(max_retries=1000000))
-        data = req_session.get(json.loads(url).text)
+        data = json.loads(req_session.get(url).text)
 
         df = pd.DataFrame(data)
         df.columns = [
