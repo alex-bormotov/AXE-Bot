@@ -36,13 +36,9 @@ def get_bars(symbol, interval):
 
     try:
         url = root_url + "?symbol=" + symbol + "&interval=" + interval
-        headers = requests.utils.default_headers()
-        headers[
-            "User-Agent"
-        ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
         req_session.mount(url, HTTPAdapter(max_retries=1000000))
-        data = req_session.get(json.loads(url, headers=headers).text)
+        data = req_session.get(json.loads(url).text)
 
         df = pd.DataFrame(data)
         df.columns = [
