@@ -12,10 +12,6 @@ show_error = "YES"
 
 exchange = exchange()
 
-df_load_already = False
-df_global = None
-df_datetime = dt.datetime.utcnow()
-
 
 def check_coin_price(coin_pair):
 
@@ -37,78 +33,50 @@ def check_coin_price(coin_pair):
 
 def get_bars(symbol, interval):
 
-    global df_load_already
-    global df_global
-    global df_datetime
+    root_url = "https://api.binance.com/api/v1/klines"
 
-    if df_datetime + timedelta(seconds=20) < dt.datetime.utcnow():
-        df_load_already = False
-        df_datetime = dt.datetime.utcnow()
+    try:
+        url = root_url + "?symbol=" + symbol + "&interval=" + interval
+        headers = requests.utils.default_headers()
+        headers[
+            "User-Agent"
+        ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
-    if df_load_already == False:
+        while True:
+            if (
+                requests.get(url, headers=headers).ok
+                and requests.get(url, headers=headers) != None
+            ):
+                data = json.loads(requests.get(url, headers=headers).text)
 
-        root_url = "https://api.binance.com/api/v1/klines"
+                df = pd.DataFrame(data)
+                df.columns = [
+                    "open_time",
+                    "open",
+                    "high",
+                    "low",
+                    "close",
+                    "volume",
+                    "close_time",
+                    "qav",
+                    "num_trades",
+                    "taker_base_vol",
+                    "taker_quote_vol",
+                    "ignore",
+                ]
+                df.index = [
+                    dt.datetime.fromtimestamp(x / 1000.0) for x in df.close_time
+                ]
+                df.open = df.open.astype(float)
+                df.close = df.close.astype(float)
 
-        try:
-            url = root_url + "?symbol=" + symbol + "&interval=" + interval
-            headers = requests.utils.default_headers()
-            headers[
-                "User-Agent"
-            ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
+                return df
 
-            while True:
-                if requests.get(url, headers=headers).ok:
-                    data = json.loads(requests.get(url, headers=headers).text)
-                    break
-                else:
-                    time.sleep(5)
-                    continue
+                break
+            else:
+                time.sleep(5)
+                continue
 
-            df = pd.DataFrame(data)
-            df.columns = [
-                "open_time",
-                "open",
-                "high",
-                "low",
-                "close",
-                "volume",
-                "close_time",
-                "qav",
-                "num_trades",
-                "taker_base_vol",
-                "taker_quote_vol",
-                "ignore",
-            ]
-            df.index = [dt.datetime.fromtimestamp(x / 1000.0) for x in df.close_time]
-            df.open = df.open.astype(float)
-            df.close = df.close.astype(float)
-
-            df_load_already = True
-            df_global = df
-            return df_global
-
-        except requests.exceptions.HTTPError as e:
-            if show_error == "YES":
-                notificator(str(e))
-        except requests.exceptions.ConnectionError as e:
-            if show_error == "YES":
-                notificator(str(e))
-        except requests.exceptions.Timeout as e:
-            if show_error == "YES":
-                notificator(str(e))
-        except requests.exceptions.RequestException as e:
-            if show_error == "YES":
-                notificator(str(e))
-
-        except ccxt.NetworkError as e:
-            if show_error == "YES":
-                notificator(str(e))
-        except ccxt.ExchangeError as e:
-            if show_error == "YES":
-                notificator(str(e))
-        except Exception as e:
-            if show_error == "YES":
-                notificator(str(e))
-
-    else:
-        return df_global
+    except Exception as e:
+        if show_error == "YES":
+            notificator(str(e))
