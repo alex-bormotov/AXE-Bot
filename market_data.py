@@ -42,12 +42,10 @@ def get_bars(symbol, interval):
         ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
         while True:
-            if (
-                requests.get(url, headers=headers).ok
-                and requests.get(url, headers=headers) != None
-            ):
-                data = json.loads(requests.get(url, headers=headers).text)
+            state = requests.get(url, headers=headers).ok
+            data = json.loads(requests.get(url, headers=headers).text)
 
+            if state == True and data != None:
                 df = pd.DataFrame(data)
                 df.columns = [
                     "open_time",
@@ -68,9 +66,7 @@ def get_bars(symbol, interval):
                 ]
                 df.open = df.open.astype(float)
                 df.close = df.close.astype(float)
-
                 return df
-
                 break
             else:
                 time.sleep(5)
