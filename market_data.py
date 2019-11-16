@@ -16,7 +16,6 @@ exchange = exchange()
 def check_coin_price(coin_pair):
 
     try:
-
         last_price = exchange.fetch_ticker(coin_pair)["last"]
         return last_price
 
