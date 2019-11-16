@@ -7,6 +7,7 @@ import datetime as dt
 from datetime import timedelta
 from exchange import exchange
 from notification import notificator
+from requests.adapters import HTTPAdapter
 
 show_error = "YES"
 
@@ -30,6 +31,7 @@ def check_coin_price(coin_pair):
 
 
 def get_bars(symbol, interval):
+    req_session = requests.Session()
     root_url = "https://api.binance.com/api/v1/klines"
 
     try:
@@ -40,7 +42,8 @@ def get_bars(symbol, interval):
         ] = "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.91 Safari/537.36"
 
         while True:
-            request = requests.get(url, headers=headers)
+            req_session.mount(url, HTTPAdapter(max_retries=19))
+            request = req_session.get(url, headers=headers)
 
             if request.ok and request.text != None:
                 df = pd.DataFrame(json.loads(request.text))
