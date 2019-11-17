@@ -78,9 +78,10 @@ def get_bars(symbol, interval):
                     + str(type(data))
                     + "req.text:"
                     + str(req.text)
+                    + "from get_bars (while loop else)"
                 )
                 continue
 
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from market_data.py")
+            notificator(str(e) + "from market_data.py (get_bars)")
