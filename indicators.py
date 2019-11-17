@@ -300,7 +300,7 @@ def get_indicators_signal(coin, coin_2):
             notificator(str(e) + "from indicators.py")
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from indicators.py")
+            notificator(str(e) + "from indicators.py (get_indicators_signal)")
 
 
 def get_indicators_signal_sell(coin, coin_2, price_buy):
@@ -542,4 +542,4 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
             notificator(str(e) + "from indicators.py")
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from indicators.py")
+            notificator(str(e) + "from indicators.py (get_indicators_signal_sell)")
