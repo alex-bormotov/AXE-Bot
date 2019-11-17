@@ -91,8 +91,17 @@ def get_signals_from_external_system():
 #################################################################################
 
 
-def get_indicators_signal(coin, coin_2):
+def get_df(coin_pair_for_get_bars, timeframe):
+    while True:
+        df = get_bars(coin_pair_for_get_bars, timeframe)
+        if df != None:
+            return df
+            break
+        else:
+            continue
 
+
+def get_indicators_signal(coin, coin_2):
     coin_pair = coin + "/" + coin_2
 
     coin_pair_for_get_bars = (
@@ -107,7 +116,7 @@ def get_indicators_signal(coin, coin_2):
 
                 coin_price = check_coin_price(coin_pair)
 
-                df = get_bars(coin_pair_for_get_bars, buy_indicators_timeframe)
+                df = get_df(coin_pair_for_get_bars, buy_indicators_timeframe)
                 bb_low = bollingerband(df, indicators_bb_period)[0]
                 rsi_data_now = rsi(df, indicators_rsi_period)
 
@@ -171,7 +180,7 @@ def get_indicators_signal(coin, coin_2):
 
                 coin_price = check_coin_price(coin_pair)
 
-                df = get_bars(coin_pair_for_get_bars, buy_indicators_timeframe)
+                df = get_df(coin_pair_for_get_bars, buy_indicators_timeframe)
 
                 rsi_data_now = rsi(df, indicators_rsi_period)
 
@@ -227,7 +236,7 @@ def get_indicators_signal(coin, coin_2):
 
                 coin_price = check_coin_price(coin_pair)
 
-                df = get_bars(coin_pair_for_get_bars, buy_indicators_timeframe)
+                df = get_df(coin_pair_for_get_bars, buy_indicators_timeframe)
                 bb_low = bollingerband(df, indicators_bb_period)[0]
 
                 if coin_price < bb_low:
@@ -310,7 +319,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok = price_buy + price_ok_tmp
                 coin_price = check_coin_price(coin_pair)
 
-                df = get_bars(coin_pair_for_get_bars, sell_indicators_timeframe)
+                df = get_df(coin_pair_for_get_bars, sell_indicators_timeframe)
                 bb_up = bollingerband(df, indicators_bb_period)[1]
                 rsi_data_now = rsi(df, indicators_rsi_period)
 
@@ -390,7 +399,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok = price_buy + price_ok_tmp
                 coin_price = check_coin_price(coin_pair)
 
-                df = get_bars(coin_pair_for_get_bars, sell_indicators_timeframe)
+                df = get_df(coin_pair_for_get_bars, sell_indicators_timeframe)
                 rsi_data_now = rsi(df, indicators_rsi_period)
 
                 stop_loss = price_buy - (
@@ -458,7 +467,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok = price_buy + price_ok_tmp
                 coin_price = check_coin_price(coin_pair)
 
-                df = get_bars(coin_pair_for_get_bars, sell_indicators_timeframe)
+                df = get_df(coin_pair_for_get_bars, sell_indicators_timeframe)
                 bb_up = bollingerband(df, indicators_bb_period)[1]
 
                 stop_loss = price_buy - (
