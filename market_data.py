@@ -37,30 +37,41 @@ def get_bars(symbol, interval):
 
     req_session = requests.Session()
     req_session.headers.update({"User-Agent": user_agent})
+    req_session.mount(url, HTTPAdapter(max_retries=19))
 
     try:
-        req_session.mount(url, HTTPAdapter(max_retries=19))
-        data = json.loads(req_session.get(url, headers={"User-Agent": user_agent}).text)
+        while True:
+            req = req_session.get(url, headers={"User-Agent": user_agent})
 
-        df = pd.DataFrame(data)
-        df.columns = [
-            "open_time",
-            "open",
-            "high",
-            "low",
-            "close",
-            "volume",
-            "close_time",
-            "qav",
-            "num_trades",
-            "taker_base_vol",
-            "taker_quote_vol",
-            "ignore",
-        ]
-        df.index = [dt.datetime.fromtimestamp(x / 1000.0) for x in df.close_time]
-        df.open = df.open.astype(float)
-        df.close = df.close.astype(float)
-        return df
+            if req.ok:
+                data = json.loads(req.text)
+
+                df = pd.DataFrame(data)
+                df.columns = [
+                    "open_time",
+                    "open",
+                    "high",
+                    "low",
+                    "close",
+                    "volume",
+                    "close_time",
+                    "qav",
+                    "num_trades",
+                    "taker_base_vol",
+                    "taker_quote_vol",
+                    "ignore",
+                ]
+                df.index = [
+                    dt.datetime.fromtimestamp(x / 1000.0) for x in df.close_time
+                ]
+                df.open = df.open.astype(float)
+                df.close = df.close.astype(float)
+
+                return df
+                break
+
+            else:
+                continue
 
     except Exception as e:
         if show_error == "YES":
