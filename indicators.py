@@ -94,7 +94,7 @@ def get_signals_from_external_system():
 def get_df(coin_pair_for_get_bars, timeframe):
     while True:
         df = get_bars(coin_pair_for_get_bars, timeframe)
-        if df != None:
+        if df.empty == False:
             return df
             break
         else:
