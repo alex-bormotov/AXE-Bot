@@ -31,14 +31,16 @@ def check_coin_price(coin_pair):
 
 
 def get_bars(symbol, interval):
-    req_session = requests.Session()
     root_url = "https://api.binance.com/api/v1/klines"
+    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36"
+    url = root_url + "?symbol=" + symbol + "&interval=" + interval
+
+    req_session = requests.Session()
+    req_session.headers.update({"User-Agent": user_agent})
 
     try:
-        url = root_url + "?symbol=" + symbol + "&interval=" + interval
-
-        req_session.mount(url, HTTPAdapter(max_retries=1000000))
-        data = json.loads(req_session.get(url).text)
+        req_session.mount(url, HTTPAdapter(max_retries=19))
+        data = json.loads(req_session.get(url, headers={"User-Agent": user_agent}).text)
 
         df = pd.DataFrame(data)
         df.columns = [
