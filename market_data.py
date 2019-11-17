@@ -64,4 +64,4 @@ def get_bars(symbol, interval):
 
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e))
+            notificator(str(e) + "from market_data.py")
