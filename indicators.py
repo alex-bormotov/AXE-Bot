@@ -97,7 +97,9 @@ def get_df(coin_pair_for_get_bars, timeframe):
         if df.empty == False:
             return df
             break
+
         else:
+            notificator("df type:" + str(type(df)) + "from indicators.py (get_df)")
             continue
 
 

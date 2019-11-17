@@ -71,6 +71,14 @@ def get_bars(symbol, interval):
                 break
 
             else:
+                notificator(
+                    "df type:"
+                    + str(type(df))
+                    + "data type:"
+                    + str(type(data))
+                    + "req.text:"
+                    + str(req.text)
+                )
                 continue
 
     except Exception as e:
