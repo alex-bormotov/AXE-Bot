@@ -84,4 +84,13 @@ def get_bars(symbol, interval):
 
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from market_data.py (get_bars)")
+            notificator(
+                str(e)
+                + "df type:"
+                + str(type(df))
+                + "data type:"
+                + str(type(data))
+                + "req.text:"
+                + str(req.text)
+                + "from market_data.py (get_bars Exception)"
+            )
