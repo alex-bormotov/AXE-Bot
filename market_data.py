@@ -17,7 +17,11 @@ exchange = exchange()
 def check_coin_price(coin_pair):
     try:
         last_price = exchange.fetch_ticker(coin_pair)["last"]
-        return last_price
+
+        if last_price != None:
+            return last_price
+        else:
+            notificator("price is None, get error, check_coin_price 24")
 
     except ccxt.NetworkError as e:
         if show_error == "YES":
@@ -27,7 +31,7 @@ def check_coin_price(coin_pair):
             notificator(str(e))
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e))
+            notificator(str(e) + "get error, check_coin_price 34")
 
 
 def get_bars(symbol, interval):
