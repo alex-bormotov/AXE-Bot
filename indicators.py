@@ -44,13 +44,8 @@ stop_loss_percent_for_start_sell_on_sell_signal = float(
     get_config()["stop_loss_percent_for_start_sell_on_sell_signal"]
 )
 
-coin_pair = coin + "/" + coin_2
-coin_pair_for_get_bars = (
-    coin + coin_2
-)  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
 
-
-def get_df(timeframe):
+def get_df(coin_pair_for_get_bars, timeframe):
     try:
         while True:
             df = get_bars(coin_pair_for_get_bars, timeframe)
@@ -69,10 +64,10 @@ def get_df(timeframe):
             )
 
 
-def bollingerband(timeframe):
+def bollingerband(coin_pair_for_get_bars, timeframe):
     try:
         while True:
-            df = get_df(timeframe)
+            df = get_df(coin_pair_for_get_bars, timeframe)
 
             sma = (
                 df["close"]
@@ -123,10 +118,10 @@ def bollingerband(timeframe):
             )
 
 
-def rsi(timeframe):
+def rsi(coin_pair_for_get_bars, timeframe):
     try:
         while True:
-            df = get_df(timeframe)
+            df = get_df(coin_pair_for_get_bars, timeframe)
 
             delta = df.close.diff()
             up_days = delta.copy()
@@ -171,6 +166,11 @@ def get_signals_from_external_system():
 
 def get_indicators_signal(coin, coin_2):
 
+    coin_pair = coin + "/" + coin_2
+    coin_pair_for_get_bars = (
+        coin + coin_2
+    )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
+
     try:
 
         while True:
@@ -178,8 +178,10 @@ def get_indicators_signal(coin, coin_2):
             if buy_indicators_type == "RSI+BB":
 
                 coin_price = check_coin_price(coin_pair)
-                bb_low = bollingerband(buy_indicators_timeframe)[0]
-                rsi_data_now = rsi(buy_indicators_timeframe)
+                bb_low = bollingerband(
+                    coin_pair_for_get_bars, buy_indicators_timeframe
+                )[0]
+                rsi_data_now = rsi(coin_pair_for_get_bars, buy_indicators_timeframe)
 
                 if coin_price < bb_low and rsi_data_now < rsi_buy_level:
 
@@ -240,7 +242,7 @@ def get_indicators_signal(coin, coin_2):
             if buy_indicators_type == "RSI":
 
                 coin_price = check_coin_price(coin_pair)
-                rsi_data_now = rsi(buy_indicators_timeframe)
+                rsi_data_now = rsi(coin_pair_for_get_bars, buy_indicators_timeframe)
 
                 if rsi_data_now < rsi_buy_level:
 
@@ -293,7 +295,9 @@ def get_indicators_signal(coin, coin_2):
             if buy_indicators_type == "BB":
 
                 coin_price = check_coin_price(coin_pair)
-                bb_low = bollingerband(buy_indicators_timeframe)[0]
+                bb_low = bollingerband(
+                    coin_pair_for_get_bars, buy_indicators_timeframe
+                )[0]
 
                 if coin_price < bb_low:
 
@@ -354,10 +358,15 @@ def get_indicators_signal(coin, coin_2):
             notificator(str(e) + "from indicators.py")
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from indicators.py (get_indicators_signal 357)")
+            notificator(str(e) + "from indicators.py (get_indicators_signal 361)")
 
 
 def get_indicators_signal_sell(coin, coin_2, price_buy):
+
+    coin_pair = coin + "/" + coin_2
+    coin_pair_for_get_bars = (
+        coin + coin_2
+    )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
 
     try:
 
@@ -369,8 +378,10 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok = price_buy + price_ok_tmp
 
                 coin_price = check_coin_price(coin_pair)
-                bb_up = bollingerband(sell_indicators_timeframe)[1]
-                rsi_data_now = rsi(sell_indicators_timeframe)
+                bb_up = bollingerband(
+                    coin_pair_for_get_bars, sell_indicators_timeframe
+                )[1]
+                rsi_data_now = rsi(coin_pair_for_get_bars, sell_indicators_timeframe)
 
                 stop_loss = price_buy - (
                     (price_buy / 100) * stop_loss_percent_for_start_sell_on_sell_signal
@@ -448,7 +459,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok = price_buy + price_ok_tmp
 
                 coin_price = check_coin_price(coin_pair)
-                rsi_data_now = rsi(sell_indicators_timeframe)
+                rsi_data_now = rsi(coin_pair_for_get_bars, sell_indicators_timeframe)
 
                 stop_loss = price_buy - (
                     (price_buy / 100) * stop_loss_percent_for_start_sell_on_sell_signal
@@ -515,7 +526,9 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok = price_buy + price_ok_tmp
 
                 coin_price = check_coin_price(coin_pair)
-                bb_up = bollingerband(sell_indicators_timeframe)[1]
+                bb_up = bollingerband(
+                    coin_pair_for_get_bars, sell_indicators_timeframe
+                )[1]
 
                 stop_loss = price_buy - (
                     (price_buy / 100) * stop_loss_percent_for_start_sell_on_sell_signal
@@ -587,4 +600,4 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
             notificator(str(e) + "from indicators.py")
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from indicators.py (get_indicators_signal_sell 590)")
+            notificator(str(e) + "from indicators.py (get_indicators_signal_sell 603)")
