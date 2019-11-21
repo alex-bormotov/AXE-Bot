@@ -45,113 +45,66 @@ stop_loss_percent_for_start_sell_on_sell_signal = float(
 )
 
 
-def get_df(coin_pair_for_get_bars, timeframe):
-    try:
-        while True:
-            df = get_bars(coin_pair_for_get_bars, timeframe)
-            if df.empty == False:
-                return df
-                break
-
-            else:
-                notificator("df type:" + str(type(df)) + "from indicators.py (get_df)")
-                continue
-
-    except Exception as e:
-        if show_error == "YES":
-            notificator(
-                str(e) + "df type:" + str(type(df)) + "from indicators.py (get_df) 71"
-            )
+def check_df_before_indicators(coin_pair_for_get_bars, timeframe):
+    while True:
+        df = get_bars(coin_pair_for_get_bars, timeframe)
+        if str(type(df)) == "<class 'NoneType'>":
+            time.sleep(3)
+            continue
+        else:
+            return df
+            break
 
 
 def bollingerband(coin_pair_for_get_bars, timeframe):
     try:
-        while True:
-            df = get_df(coin_pair_for_get_bars, timeframe)
+        df = check_df_before_indicators(coin_pair_for_get_bars, timeframe)
 
-            sma = (
-                df["close"]
-                .rolling(
-                    window=indicators_bb_period, min_periods=indicators_bb_period - 1
-                )
-                .mean()
-            )
-            std = (
-                df["close"]
-                .rolling(
-                    window=indicators_bb_period, min_periods=indicators_bb_period - 1
-                )
-                .std()
-            )
-            up = (sma + (std * 2)).to_frame("BBANDUP")
-            lower = (sma - (std * 2)).to_frame("BBANDLO")
-            bollingerband = df.join(up).join(lower)
-            bollingerband = bollingerband.dropna()
-            bollingerband_low = bollingerband["BBANDLO"][-1]
-            bollingerband_up = bollingerband["BBANDUP"][-1]
+        sma = (
+            df["close"]
+            .rolling(window=indicators_bb_period, min_periods=indicators_bb_period - 1)
+            .mean()
+        )
+        std = (
+            df["close"]
+            .rolling(window=indicators_bb_period, min_periods=indicators_bb_period - 1)
+            .std()
+        )
+        up = (sma + (std * 2)).to_frame("BBANDUP")
+        lower = (sma - (std * 2)).to_frame("BBANDLO")
+        bollingerband = df.join(up).join(lower)
+        bollingerband = bollingerband.dropna()
+        bollingerband_low = bollingerband["BBANDLO"][-1]
+        bollingerband_up = bollingerband["BBANDUP"][-1]
 
-            if bollingerband_low != None and bollingerband_up != None:
-                return bollingerband_low, bollingerband_up
-                break
-
-            else:
-                notificator(
-                    "bollingerband_low, bollingerband_up is None"
-                    + "bollingerband_low:"
-                    + str(type(bollingerband_low))
-                    + "bollingerband_up:"
-                    + str(type(bollingerband_up))
-                )
-                continue
+        return bollingerband_low, bollingerband_up
 
     except Exception as e:
         if show_error == "YES":
-            notificator(
-                str(e)
-                + "df type:"
-                + str(type(df))
-                + "from indicators.py (bollingerband)"
-                + "bollingerband_low:"
-                + str(type(bollingerband_low))
-                + "bollingerband_up:"
-                + str(type(bollingerband_up))
-            )
+            notificator(str(e))
 
 
 def rsi(coin_pair_for_get_bars, timeframe):
     try:
-        while True:
-            df = get_df(coin_pair_for_get_bars, timeframe)
+        df = check_df_before_indicators(coin_pair_for_get_bars, timeframe)
 
-            delta = df.close.diff()
-            up_days = delta.copy()
-            up_days[delta <= 0] = 0.0
-            down_days = abs(delta.copy())
-            down_days[delta > 0] = 0.0
-            RS_up = up_days.rolling(indicators_rsi_period).mean()
-            RS_down = down_days.rolling(indicators_rsi_period).mean()
-            rsi = 100 - 100 / (1 + RS_up / RS_down)
+        delta = df.close.diff()
+        up_days = delta.copy()
+        up_days[delta <= 0] = 0.0
+        down_days = abs(delta.copy())
+        down_days[delta > 0] = 0.0
+        RS_up = up_days.rolling(indicators_rsi_period).mean()
+        RS_down = down_days.rolling(indicators_rsi_period).mean()
+        rsi = 100 - 100 / (1 + RS_up / RS_down)
 
-            rsi_data = rsi.dropna()
-            rsi_now = rsi_data[-1]
+        rsi_data = rsi.dropna()
+        rsi_now = rsi_data[-1]
 
-            if rsi_now != None:
-                return rsi_now
-                break
-            else:
-                notificator("rsi_now is None" + "rsi_now:" + str(type(rsi_now)))
-                continue
+        return rsi_now
 
     except Exception as e:
         if show_error == "YES":
-            notificator(
-                str(e)
-                + "df type:"
-                + str(type(df))
-                + "from indicators.py (rsi)"
-                + "rsi_now:"
-                + str(type(rsi_now))
-            )
+            notificator(str(e))
 
 
 #################################################################################
@@ -172,11 +125,8 @@ def get_indicators_signal(coin, coin_2):
     )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
 
     try:
-
         while True:
-
             if buy_indicators_type == "RSI+BB":
-
                 coin_price = check_coin_price(coin_pair)
                 bb_low = bollingerband(
                     coin_pair_for_get_bars, buy_indicators_timeframe
@@ -240,7 +190,6 @@ def get_indicators_signal(coin, coin_2):
                     continue
 
             if buy_indicators_type == "RSI":
-
                 coin_price = check_coin_price(coin_pair)
                 rsi_data_now = rsi(coin_pair_for_get_bars, buy_indicators_timeframe)
 
@@ -293,7 +242,6 @@ def get_indicators_signal(coin, coin_2):
                     continue
 
             if buy_indicators_type == "BB":
-
                 coin_price = check_coin_price(coin_pair)
                 bb_low = bollingerband(
                     coin_pair_for_get_bars, buy_indicators_timeframe
@@ -350,28 +298,19 @@ def get_indicators_signal(coin, coin_2):
                     time.sleep(indicators_check_interval)
                     continue
 
-    except ccxt.NetworkError as e:
-        if show_error == "YES":
-            notificator(str(e) + "from indicators.py")
-    except ccxt.ExchangeError as e:
-        if show_error == "YES":
-            notificator(str(e) + "from indicators.py")
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from indicators.py (get_indicators_signal 361)")
+            notificator(str(e))
 
 
 def get_indicators_signal_sell(coin, coin_2, price_buy):
-
     coin_pair = coin + "/" + coin_2
     coin_pair_for_get_bars = (
         coin + coin_2
     )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
 
     try:
-
         while True:
-
             if sell_indicators_type == "RSI+BB":
 
                 price_ok_tmp = (price_buy / 100) * price_buffer
@@ -454,7 +393,6 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                     continue
 
             if sell_indicators_type == "RSI":
-
                 price_ok_tmp = (price_buy / 100) * price_buffer
                 price_ok = price_buy + price_ok_tmp
 
@@ -521,7 +459,6 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                     continue
 
             if sell_indicators_type == "BB":
-
                 price_ok_tmp = (price_buy / 100) * price_buffer
                 price_ok = price_buy + price_ok_tmp
 
@@ -592,12 +529,6 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                     time.sleep(indicators_check_interval)
                     continue
 
-    except ccxt.NetworkError as e:
-        if show_error == "YES":
-            notificator(str(e) + "from indicators.py")
-    except ccxt.ExchangeError as e:
-        if show_error == "YES":
-            notificator(str(e) + "from indicators.py")
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + "from indicators.py (get_indicators_signal_sell 603)")
+            notificator(str(e))
