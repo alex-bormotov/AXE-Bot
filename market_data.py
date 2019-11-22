@@ -15,7 +15,14 @@ exchange = exchange()
 
 
 def check_coin_price(coin_pair):
-    return exchange.fetch_ticker(coin_pair)["last"]
+    try:
+        return exchange.fetch_ticker(coin_pair)["last"]
+
+    except Exception as e:
+        if show_error == "YES":
+            notificator(
+                str(e) + "this shit happened in market_data.py (check_coin_price)"
+            )
 
 
 def get_bars(symbol, interval):
