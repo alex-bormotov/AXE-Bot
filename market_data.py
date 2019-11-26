@@ -25,9 +25,9 @@ show_error = "YES"
 #             )
 
 
-def check_coin_price(coin_pair):
+def check_coin_price(coin_pair_for_get_bars):
     root_url = "https://api.binance.com/api/v3/ticker/24hr?symbol="
-    url = root_url + coin_pair
+    url = root_url + coin_pair_for_get_bars
     user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36"
 
     req_session = requests.Session()
