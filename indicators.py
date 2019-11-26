@@ -56,6 +56,17 @@ def check_df_before_indicators(coin_pair_for_get_bars, timeframe):
             break
 
 
+def check_coin_price_before_indicators(coin_pair):
+    while True:
+        coin_price = check_coin_price(coin_pair)
+        if str(type(coin_price)) == "<class 'NoneType'>":
+            time.sleep(3)
+            continue
+        else:
+            return coin_price
+            break
+
+
 def bollingerband(coin_pair_for_get_bars, timeframe):
     try:
         df = check_df_before_indicators(coin_pair_for_get_bars, timeframe)
@@ -127,7 +138,7 @@ def get_indicators_signal(coin, coin_2):
     try:
         while True:
             if buy_indicators_type == "RSI+BB":
-                coin_price = check_coin_price(coin_pair)
+                coin_price = check_coin_price_before_indicators(coin_pair)
                 bb_low = bollingerband(
                     coin_pair_for_get_bars, buy_indicators_timeframe
                 )[0]
@@ -190,7 +201,7 @@ def get_indicators_signal(coin, coin_2):
                     continue
 
             if buy_indicators_type == "RSI":
-                coin_price = check_coin_price(coin_pair)
+                coin_price = check_coin_price_before_indicators(coin_pair)
                 rsi_data_now = rsi(coin_pair_for_get_bars, buy_indicators_timeframe)
 
                 if rsi_data_now < rsi_buy_level:
@@ -242,7 +253,7 @@ def get_indicators_signal(coin, coin_2):
                     continue
 
             if buy_indicators_type == "BB":
-                coin_price = check_coin_price(coin_pair)
+                coin_price = check_coin_price_before_indicators(coin_pair)
                 bb_low = bollingerband(
                     coin_pair_for_get_bars, buy_indicators_timeframe
                 )[0]
@@ -316,7 +327,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok_tmp = (price_buy / 100) * price_buffer
                 price_ok = price_buy + price_ok_tmp
 
-                coin_price = check_coin_price(coin_pair)
+                coin_price = check_coin_price_before_indicators(coin_pair)
                 bb_up = bollingerband(
                     coin_pair_for_get_bars, sell_indicators_timeframe
                 )[1]
@@ -396,7 +407,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok_tmp = (price_buy / 100) * price_buffer
                 price_ok = price_buy + price_ok_tmp
 
-                coin_price = check_coin_price(coin_pair)
+                coin_price = check_coin_price_before_indicators(coin_pair)
                 rsi_data_now = rsi(coin_pair_for_get_bars, sell_indicators_timeframe)
 
                 stop_loss = price_buy - (
@@ -462,7 +473,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 price_ok_tmp = (price_buy / 100) * price_buffer
                 price_ok = price_buy + price_ok_tmp
 
-                coin_price = check_coin_price(coin_pair)
+                coin_price = check_coin_price_before_indicators(coin_pair)
                 bb_up = bollingerband(
                     coin_pair_for_get_bars, sell_indicators_timeframe
                 )[1]
