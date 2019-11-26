@@ -63,7 +63,7 @@ def check_coin_price_before_indicators(coin_pair):
             time.sleep(3)
             continue
         else:
-            return coin_price
+            return float(coin_price)
             break
 
 
