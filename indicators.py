@@ -58,7 +58,7 @@ def check_df_before_indicators(coin_pair_for_get_bars, timeframe):
 
 def check_coin_price_before_indicators(coin_pair_for_get_bars):
     while True:
-        coin_price = check_coin_price(coin_pair)
+        coin_price = check_coin_price(coin_pair_for_get_bars)
         if str(type(coin_price)) == "<class 'NoneType'>":
             time.sleep(3)
             continue
