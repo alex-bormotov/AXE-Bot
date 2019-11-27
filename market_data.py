@@ -42,8 +42,7 @@ def check_coin_price(coin_pair_for_get_bars):
     except Exception as e:
         if show_error == "YES":
             notificator(
-                str(e)
-                + " this shit happened(AGAIN!) in market_data.py (check_coin_price)"
+                str(e) + " this shit happened in market_data.py (check_coin_price)"
             )
 
 
