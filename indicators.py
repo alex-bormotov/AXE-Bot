@@ -46,25 +46,40 @@ stop_loss_percent_for_start_sell_on_sell_signal = float(
 
 
 def check_df_before_indicators(coin_pair_for_get_bars, timeframe):
-    while True:
-        df = get_bars(coin_pair_for_get_bars, timeframe)
-        if str(type(df)) == "<class 'NoneType'>":
-            time.sleep(3)
-            continue
-        else:
-            return df
-            break
+    try:
+        while True:
+            df = get_bars(coin_pair_for_get_bars, timeframe)
+            if str(type(df)) == "<class 'NoneType'>":
+                time.sleep(3)
+                continue
+            else:
+                return df
+                break
+    except Exception as e:
+        if show_error == "YES":
+            notificator(
+                str(e)
+                + " this shit happened in indicators.py (check_df_before_indicators)"
+            )
 
 
 def check_coin_price_before_indicators(coin_pair_for_get_bars):
-    while True:
-        coin_price = check_coin_price(coin_pair_for_get_bars)
-        if str(type(coin_price)) == "<class 'NoneType'>":
-            time.sleep(3)
-            continue
-        else:
-            return float(coin_price)
-            break
+    try:
+        while True:
+            coin_price = check_coin_price(coin_pair_for_get_bars)
+            if str(type(coin_price)) == "<class 'NoneType'>" or coin_price is not float:
+                time.sleep(3)
+                continue
+            else:
+                return coin_price
+                break
+
+    except Exception as e:
+        if show_error == "YES":
+            notificator(
+                str(e)
+                + " this shit happened in indicators.py (check_coin_price_before_indicators)"
+            )
 
 
 def bollingerband(coin_pair_for_get_bars, timeframe):
