@@ -21,7 +21,7 @@ debug = "NO"
 buy_indicators_type = get_config()["buy_indicators_type"]
 sell_indicators_type = get_config()["sell_indicators_type"]
 
-indicators_check_interval = 5.0
+indicators_check_interval = 5
 
 indicators_bb_period = int(get_config()["indicators_bb_period"])
 indicators_rsi_period = int(get_config()["indicators_rsi_period"])
@@ -50,7 +50,7 @@ def check_df_before_indicators(coin_pair_for_get_bars, timeframe):
         while True:
             df = get_bars(coin_pair_for_get_bars, timeframe)
             if str(type(df)) == "<class 'NoneType'>":
-                time.sleep(3)
+                time.sleep(indicators_check_interval)
                 continue
             else:
                 return df
@@ -68,7 +68,7 @@ def check_coin_price_before_indicators(coin_pair_for_get_bars):
         while True:
             coin_price = check_coin_price(coin_pair_for_get_bars)
             if str(type(coin_price)) == "<class 'NoneType'>" or coin_price is not float:
-                time.sleep(3)
+                time.sleep(indicators_check_interval)
                 continue
             else:
                 return coin_price
