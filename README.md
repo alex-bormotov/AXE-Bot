@@ -41,6 +41,8 @@
 
 > [Update](#Update)
 
+> [Say Me Thanks :)](#Donate)
+
 ---
 
 
@@ -407,9 +409,13 @@ Common cooldown (sec) | 7200
 
 ---
 
+##### Donate
+
 > This is my second Python project
 
 > If my code was useful for you may buy me tea: 
+
+> [My Binance Referal Link](https://www.binance.com/en/register?ref=35560900)
 
 > BTC 1LTwU8hVYxxpHUDf3wYNDjnS9kK4PDdtgT
 
