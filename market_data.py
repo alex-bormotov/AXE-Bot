@@ -24,7 +24,7 @@ def check_coin_price(coin_pair_for_get_bars):
     try:
         req = req_session.get(url, headers={"User-Agent": user_agent})
         price = json.loads(req.text)["result"]["price"]
-        return price
+        return float(price)
 
     except Exception as e:
         if show_error == "YES":
