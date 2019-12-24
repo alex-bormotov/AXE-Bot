@@ -10,21 +10,29 @@ from requests.adapters import HTTPAdapter
 
 show_error = "YES"
 
+
 # GET PRICE FROM CRYPTOWAT.CH:
 def check_coin_price(coin_pair_for_get_bars):
     # https://developer.cryptowat.ch/reference/rest-api-getting-started
     root_url = "https://api.cryptowat.ch/markets/binance/"
     url = root_url + coin_pair_for_get_bars.lower() + "/price"
-    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36"
+    user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
 
     req_session = requests.Session()
     req_session.headers.update({"User-Agent": user_agent})
     req_session.mount(url, HTTPAdapter(max_retries=3))
 
     try:
-        req = req_session.get(url, headers={"User-Agent": user_agent})
-        price = json.loads(req.text)["result"]["price"]
-        return float(price)
+        while True:
+            req = req_session.get(url, headers={"User-Agent": user_agent})
+            price = json.loads(req.text)["result"]["price"]
+
+            if str(type(price)) == "<class 'NoneType'>":
+                time.sleep(5)
+                continue
+            else:
+                return float(price)
+                break
 
     except Exception as e:
         if show_error == "YES":
