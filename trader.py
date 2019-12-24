@@ -45,10 +45,13 @@ def trail_buy(coin, coin_2, stake_per_trade):
     try:
         buy_trail_step = float(get_config()["buy_trail_step"])
         coin_pair = coin + "/" + coin_2
+        coin_pair_for_get_bars = (
+            coin + coin_2
+        )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
         notificator("Awaiting buy ...")
-        start_price = check_coin_price(coin_pair)
+        start_price = check_coin_price(coin_pair_for_get_bars)
         time.sleep(1)
-        current_price = check_coin_price(coin_pair)
+        current_price = check_coin_price(coin_pair_for_get_bars)
         current_change_percent = (
             (float(current_price) - start_price) / start_price
         ) * 100
@@ -60,7 +63,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
                 if last_change_percent > current_change_percent:
                     last_change_percent = current_change_percent
 
-                current_price = check_coin_price(coin_pair)
+                current_price = check_coin_price(coin_pair_for_get_bars)
                 current_change_percent = (
                     (float(current_price) - start_price) / start_price
                 ) * 100
@@ -220,7 +223,7 @@ def trail_sell(
     try:
         sell_trail_step = float(get_config()["sell_trail_step"])
         start_price = price_buy
-        current_price = check_coin_price(coin_pair)
+        current_price = check_coin_price(coin_pair_for_get_bars)
         current_change_percent = (
             (float(current_price) - start_price) / start_price
         ) * 100
@@ -234,7 +237,7 @@ def trail_sell(
                 if last_change_percent < current_change_percent:
                     last_change_percent = current_change_percent
 
-                current_price = check_coin_price(coin_pair)
+                current_price = check_coin_price(coin_pair_for_get_bars)
                 current_change_percent = (
                     (float(current_price) - start_price) / start_price
                 ) * 100
