@@ -133,6 +133,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
                                     coin_2,
                                     buy_order,
                                     stake_per_trade,
+                                    coin_pair_for_get_bars,
                                 )
 
                                 break
@@ -144,6 +145,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
                             coin_2,
                             buy_order,
                             stake_per_trade,
+                            coin_pair_for_get_bars,
                         )
 
                         break
@@ -192,6 +194,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
                                 coin_2,
                                 buy_order,
                                 stake_per_trade,
+                                coin_pair_for_get_bars,
                             )
                             break
 
@@ -203,6 +206,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
                         coin_2,
                         buy_order,
                         stake_per_trade,
+                        coin_pair_for_get_bars,
                     )
                     break
 
@@ -218,7 +222,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
 
 
 def trail_sell(
-    coin_pair, buy_order_id, price_buy, coin, coin_2, buy_order, stake_per_trade
+    coin_pair, buy_order_id, price_buy, coin, coin_2, buy_order, stake_per_trade, coin_pair_for_get_bars
 ):
     try:
         sell_trail_step = float(get_config()["sell_trail_step"])
