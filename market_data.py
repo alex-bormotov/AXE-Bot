@@ -36,6 +36,7 @@ def check_coin_price(coin_pair_for_get_bars):
 
     except Exception as e:
         if show_error == "YES":
+            notificator(f'coin_pair must be like ETHUSDT.lower(), received {coin_pair_for_get_bars}')
             notificator(
                 str(e) + " this shit happened in market_data.py (check_coin_price)"
             )
@@ -90,7 +91,7 @@ def get_bars(symbol, interval):
             notificator(str(e))
 
 
-# GET DATA FROM BINANCE(CCXT):
+# GET PRICE FROM BINANCE (CCXT):
 # from exchange import exchange
 # exchange = exchange()
 
@@ -100,6 +101,7 @@ def get_bars(symbol, interval):
 #
 #     except Exception as e:
 #         if show_error == "YES":
+#             notificator(f'coin_pair must be like ETH/USDT (for CCXT), received {coin_pair}')
 #             notificator(
 #                 str(e) + " this shit happened in market_data.py (check_coin_price)"
 #             )
@@ -121,6 +123,7 @@ def get_bars(symbol, interval):
 #
 #     except Exception as e:
 #         if show_error == "YES":
+#             notificator(f'coin_pair must be like ETHUSDT, received {coin_pair_for_get_bars}')
 #             notificator(
 #                 str(e) + " this shit happened in market_data.py (check_coin_price)"
 #             )
