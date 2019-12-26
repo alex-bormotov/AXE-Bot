@@ -226,7 +226,7 @@ python3 bot.py &
 > key and value must be into "", for instance "exchange_fee": "0.1"
 
 key|value|description
-|:----------|:-------------|------:|
+|:----------|:-------------:|------:|
 exchange_for_trade|binance|Currently supports Binance only
 requests_frequency|number|Frequency of requests (get price, get balances, check indicators, check orders, etc ...), in seconds, default 1
 key|text|Binance API key
@@ -256,7 +256,7 @@ dyn_trail_step_5|number|0.05, for instance
 indicators_bb_period|number|20, for instance
 indicators_rsi_period|number|14, for instance
 buy_indicators_type|RSI+BB/RSI/BB|RSI+BB, for instance
-buy_indicators_timeframe|1, 5, 15, 30m or 1, 4h, 1d|15m, for instance. Must be like 15m, means with 'm'
+buy_indicators_timeframe|period (m/h/d)|15m, for instance. Must be like 15m, means with 'm'
 rsi_buy_level|number|35, for instance
 start_buy_trail_on_buy_signal|YES/NO|If set to 'NO' bot will start buy instantly, if 'YES' - only on a signal
 ignore_buy_signal_enable|YES/NO|[FAQ](FAQ.md#what-means-ignore-buy-sell-signals)
@@ -265,7 +265,7 @@ ignore_buy_signal_times|number|4, for instance [FAQ](FAQ.md#what-means-ignore-bu
 ignore_buy_signal_time_sec|number|In seconds, 120 (2m), for instance [FAQ](FAQ.md#what-means-ignore-buy-sell-signals)
 ignore_buy_cooldown_sec|number|In seconds, 30, for instance [FAQ](FAQ.md#what-means-ignore-buy-sell-signals)
 sell_indicators_type|RSI+BB/RSI/BB|RSI+BB, for instance
-sell_indicators_timeframe|1, 5, 15, 30m or 1, 4h, 1d|15m, for instance. Must be like 15m, means with 'm'
+sell_indicators_timeframe|period (m/h/d)|15m, for instance. Must be like 15m, means with 'm'
 rsi_sell_level|number|77, for instance
 start_sell_trail_on_sell_signal|YES/NO|If set to 'NO' bot will start sell according with 'sell_trail_step', if YES - only on a sell signal
 ignore_sell_signal_enable|YES/NO|[FAQ](FAQ.md#what-means-ignore-buy-sell-signals)
