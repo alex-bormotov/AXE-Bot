@@ -39,6 +39,7 @@
 #### What do I need to use for login
 
 > Login is equal bot_id, you can take it from notification on telegram or from config/config.json (last string).
+
 > bot_id will automatically generated while first start and saving to config.json, keep in mind that all your payments and licence will be connected to this bot_id, if you change it then you need to buy a new licence.
 
 #### I changed my api keys and bot tell me that it is DEMO again, do I need to buy a new licence
