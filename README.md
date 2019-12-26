@@ -281,6 +281,7 @@ dyn_trail_step_3 | `number` | 0.07, for instance
 dyn_trail_step_4 | `number` | 0.06, for instance
 
 dyn_trail_step_5 | `number` | 0.05, for instance
+
 indicators_bb_period | `number` | 20, for instance
 
 indicators_rsi_period | `number` | 14, for instance
