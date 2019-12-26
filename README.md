@@ -236,6 +236,7 @@ python3 bot.py &
 key | value | description
 --- | --- | ---
 exchange_for_trade | `binance` | Currently supports Binance only
+requests_frequency | `number` | Frequency of requests (get price, get balances, check indicators, check orders, etc ...), in seconds, default 1
 key | `text` | Binance API key
 secret | `text` | Binance API secret
 exchange_fee | `number` | 0.1, on Binance (without using BNB)
@@ -413,7 +414,7 @@ Common cooldown (sec) | 7200
 
 > This is my second Python project
 
-> If my code was useful for you may buy me tea: 
+> If my code was useful for you may buy me tea:
 
 > [My Binance Referal Link](https://www.binance.com/en/register?ref=35560900)
 

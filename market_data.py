@@ -7,39 +7,51 @@ from time import sleep
 from datetime import timedelta
 from notification import notificator
 from requests.adapters import HTTPAdapter
+from exchange import api_requests_frequency
 
 show_error = "YES"
+api_requests_frequency = api_requests_frequency()
 
 
 # GET PRICE FROM CRYPTOWAT.CH:
 def check_coin_price(coin_pair_for_get_bars):
-    # https://developer.cryptowat.ch/reference/rest-api-getting-started
-    root_url = "https://api.cryptowat.ch/markets/binance/"
-    url = root_url + coin_pair_for_get_bars.lower() + "/price"
-    user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    def get_price():
+        # https://developer.cryptowat.ch/reference/rest-api-getting-started
+        root_url = "https://api.cryptowat.ch/markets/binance/"
+        url = root_url + coin_pair_for_get_bars.lower() + "/price"
+        user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+        req_session = requests.Session()
+        req_session.headers.update({"User-Agent": user_agent})
+        req_session.mount(url, HTTPAdapter(max_retries=3))
 
-    req_session = requests.Session()
-    req_session.headers.update({"User-Agent": user_agent})
-    req_session.mount(url, HTTPAdapter(max_retries=3))
+        try:
+            while True:
+                req = req_session.get(url, headers={"User-Agent": user_agent})
+                if req.ok:
+                    if 'price' in req_session.get(url, headers={"User-Agent": user_agent}).text:
+                        price = json.loads(req.text)["result"]["price"]
+                        if type(price) is int or type(price) is float:
+                            return float(price)
+                            break
+                        else:
+                            time.sleep(api_requests_frequency)
+                            continue
+                    else:
+                        time.sleep(api_requests_frequency)
+                        continue
+                else:
+                    time.sleep(api_requests_frequency)
+                    continue
+        except Exception as e:
+            pass
 
-    try:
-        while True:
-            req = req_session.get(url, headers={"User-Agent": user_agent})
-            price = json.loads(req.text)["result"]["price"]
-
-            if str(type(price)) == "<class 'NoneType'>":
-                time.sleep(5)
-                continue
-            else:
-                return float(price)
-                break
-
-    except Exception as e:
-        if show_error == "YES":
-            notificator(f'coin_pair must be like ETHUSDT.lower(), received {coin_pair_for_get_bars}')
-            notificator(
-                str(e) + " this shit happened in market_data.py (check_coin_price)"
-            )
+    while True:
+        price = get_price()
+        if price != None:
+            return(price)
+            break
+        else:
+            continue
 
 
 # GET DATA FROM CRYPTOWAT.CH:
@@ -88,7 +100,7 @@ def get_bars(symbol, interval):
 
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e))
+            notificator(str(e) + 'from get_bars')
 
 
 # GET PRICE FROM BINANCE (CCXT):

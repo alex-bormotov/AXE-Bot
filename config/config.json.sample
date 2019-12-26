@@ -1,5 +1,6 @@
 {
 "exchange_for_trade": "binance",
+"requests_frequency": "1",
 "key": "YOUR Binance KEY",
 "secret": "YOUR Binance SECRET",
 "exchange_fee": "0.1",

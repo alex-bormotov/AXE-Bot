@@ -25,5 +25,4 @@ def exchange():
 
 
 def api_requests_frequency():
-    api_requests_frequency = 0.5  # sec
-    return api_requests_frequency
+    return float(get_config()["requests_frequency"])  # sec

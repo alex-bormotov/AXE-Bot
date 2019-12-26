@@ -13,30 +13,21 @@ from ignore_signals import (
     ingnore_signal_time,
 )
 from human import number_for_human
+from exchange import api_requests_frequency
 
 show_error = "YES"
 debug = "NO"
 
-
+api_requests_frequency = api_requests_frequency()
 buy_indicators_type = get_config()["buy_indicators_type"]
 sell_indicators_type = get_config()["sell_indicators_type"]
-
-indicators_check_interval = 5
-
 indicators_bb_period = int(get_config()["indicators_bb_period"])
 indicators_rsi_period = int(get_config()["indicators_rsi_period"])
-
-
 buy_indicators_timeframe = get_config()["buy_indicators_timeframe"]
 sell_indicators_timeframe = get_config()["sell_indicators_timeframe"]
-
-
 rsi_buy_level = int(get_config()["rsi_buy_level"])
 rsi_sell_level = int(get_config()["rsi_sell_level"])
-
-
 price_buffer = float(get_config()["price_buffer_for_start_sell_on_sell_signal"])
-
 use_stop_loss_while_start_sell_on_sell_signal = get_config()[
     "use_stop_loss_while_start_sell_on_sell_signal"
 ]
@@ -175,7 +166,7 @@ def get_indicators_signal(coin, coin_2):
                 else:
                     if debug == "YES":
                         notificator("Awaiting for Signal ...")
-                    time.sleep(indicators_check_interval)
+                    time.sleep(api_requests_frequency)
                     continue
 
             if buy_indicators_type == "RSI":
@@ -227,7 +218,7 @@ def get_indicators_signal(coin, coin_2):
                 else:
                     if debug == "YES":
                         notificator("Awaiting for Signal ...")
-                    time.sleep(indicators_check_interval)
+                    time.sleep(api_requests_frequency)
                     continue
 
             if buy_indicators_type == "BB":
@@ -284,7 +275,7 @@ def get_indicators_signal(coin, coin_2):
                 else:
                     if debug == "YES":
                         notificator("Awaiting for Signal ...")
-                    time.sleep(indicators_check_interval)
+                    time.sleep(api_requests_frequency)
                     continue
 
     except Exception as e:
@@ -378,7 +369,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 else:
                     if debug == "YES":
                         notificator("Awaiting for SELL Signal ...")
-                    time.sleep(indicators_check_interval)
+                    time.sleep(api_requests_frequency)
                     continue
 
             if sell_indicators_type == "RSI":
@@ -444,7 +435,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 else:
                     if debug == "YES":
                         notificator("Awaiting for SELL Signal ...")
-                    time.sleep(indicators_check_interval)
+                    time.sleep(api_requests_frequency)
                     continue
 
             if sell_indicators_type == "BB":
@@ -515,7 +506,7 @@ def get_indicators_signal_sell(coin, coin_2, price_buy):
                 else:
                     if debug == "YES":
                         notificator("Awaiting for SELL Signal ...")
-                    time.sleep(indicators_check_interval)
+                    time.sleep(api_requests_frequency)
                     continue
 
     except Exception as e:
