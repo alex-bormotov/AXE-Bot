@@ -225,7 +225,7 @@ python3 bot.py &
 
 > key and value must be into "", for instance "exchange_fee": "0.1"
 
-|key|value|description|
+key|value|description
 |:----------|:-------------:|------:|
 exchange_for_trade|`       binance       `|Currently supports Binance only
 requests_frequency|`       number        `|Frequency of requests (get price, get balances, check indicators, check orders, etc ...), in seconds, default 1
@@ -293,63 +293,63 @@ bot_id |       `text`       |your unique id, DON'T CHANGE IT!
 #### Ready Strategies
 
 
-|Strategy | Config file |
+Strategy | Config file
 |----------|:-------------:|
-|[Indicators only](data/strategy-1.png) | config.json.sample |
-|Tested and make profit | YES |
-|Exchange | Binance (spot) |
-|Pair | BNB/BTC |
-|Use all balance | YES |
-|Fee in BNB | YES |
-|Timeframe | 15m ||
-|Order type | limit |
-|Cancel by inactivity | YES (7m) |
-|Stop loss | NO |
-|Dynamic trailing | NO |
-|Trailing Buy | YES (0.007) |
-|Trailing Sell | YES (0.007) |
-|Start Buy on signal | YES |
-|Start Sell on signal | YES |
-|Indicators | RSI+BB |
-|BB period | 20 |
-|RSI period | 14 |
-|RSI Buy | 35 |
-|RSI Sell | 77 |
-|Sell with profit only | YES (0.7% min) |
+[Indicators only](data/strategy-1.png) | config.json.sample
+Tested and make profit | YES
+Exchange | Binance (spot)
+Pair | BNB/BTC
+Use all balance | YES
+Fee in BNB | YES
+Timeframe | 15m
+Order type | limit
+Cancel by inactivity | YES (7m)
+Stop loss | NO
+Dynamic trailing | NO
+Trailing Buy | YES (0.007)
+Trailing Sell | YES (0.007)
+Start Buy on signal | YES
+Start Sell on signal | YES
+Indicators | RSI+BB
+BB period | 20
+RSI period | 14
+RSI Buy | 35
+RSI Sell | 77
+Sell with profit only | YES (0.7% min)
 
 ---
 
-|Strategy | Config file |
+Strategy | Config file 
 |----------|:-------------:|
-|[Indicators and "ignore indicators" feature](FAQ.md#what-means-ignore-buy-sell-signals) | config.json.sample_2 |
-|Tested and make profit | YES |
-|Exchange | Binance (spot) |
-|Pair | BNB/BTC |
-|Use all balance | YES |
-|Fee in BNB | YES |
-|Timeframe | 15m |
-|Order type | market |
-|Stop loss | NO |
-|Dynamic trailing | NO |
-|Trailing Buy | YES (0.1) |
-|Trailing Sell | YES (0.2) |
-|Start Buy on signal | YES |
-|Ignore Buy signal | YES |
-|Ignore Buy signal type | times |
-|Ignore Buy signal times | 6 |
-|Ignore Buy cooldown (sec) | 900 |
-|Start Sell on signal | YES |
-|Ignore Sell signal | YES |
-|Ignore Sell signal type | times |
-|Ignore Sell signal times | 4 |
-|Ignore Sell cooldown (sec) | 900 |
-|Indicators | RSI+BB |
-|BB period | 20 |
-|RSI period | 14 |
-|RSI Buy | 29 |
-|RSI Sell | 79 |
-|Sell with profit only | YES (0.7% min) |
-|Common cooldown (sec) | 7200 |
+[Indicators and "ignore indicators" feature](FAQ.md#what-means-ignore-buy-sell-signals) | config.json.sample_2 
+Tested and make profit | YES 
+Exchange | Binance (spot) 
+Pair | BNB/BTC 
+Use all balance | YES 
+Fee in BNB | YES 
+Timeframe | 15m 
+Order type | market 
+Stop loss | NO 
+Dynamic trailing | NO 
+Trailing Buy | YES (0.1) 
+Trailing Sell | YES (0.2) 
+Start Buy on signal | YES 
+Ignore Buy signal | YES 
+Ignore Buy signal type | times 
+Ignore Buy signal times | 6 
+Ignore Buy cooldown (sec) | 900 
+Start Sell on signal | YES 
+Ignore Sell signal | YES 
+Ignore Sell signal type | times 
+Ignore Sell signal times | 4 
+Ignore Sell cooldown (sec) | 900 
+Indicators | RSI+BB 
+BB period | 20 
+RSI period | 14 
+RSI Buy | 29 
+RSI Sell | 79 
+Sell with profit only | YES (0.7% min) 
+Common cooldown (sec) | 7200 
 
 ##### Creating own strategy
 
