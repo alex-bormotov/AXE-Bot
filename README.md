@@ -1,3 +1,5 @@
+[![Total alerts](https://img.shields.io/lgtm/alerts/g/alex-bormotov/AXE-Bot.svg?logo=lgtm&logoWidth=18)](https://lgtm.com/projects/g/alex-bormotov/AXE-Bot/alerts/)
+
 # AXE Bot - Crypto Trading Bot for Binance.com
 
 ![AXE BOT](data/diagram.png)
