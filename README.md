@@ -53,13 +53,11 @@
 
 #### Install
 
-* [Docker](#docker)
+*  [Docker](#docker)
 
+*  [Ubuntu](#ubuntu)
 
-* [Ubuntu](#ubuntu)
-
-
-* [Windows](FAQ.md#i-want-to-install-the-bot-on-windows)
+*  [Windows](FAQ.md#i-want-to-install-the-bot-on-windows)
 
 #### Docker
 
