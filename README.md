@@ -58,7 +58,7 @@
 *  [Ubuntu](#ubuntu)
 
 *  [Windows](FAQ.md#i-want-to-install-the-bot-on-windows)
-  
+
 #### Docker
 
 > Buy Ubuntu VPS near by exchange
@@ -228,7 +228,7 @@ python3 bot.py &
 > key and value must be into "", for instance "exchange_fee": "0.1"
 
 |key|value|description|
-|----------|:-------------:|------:|
+|:----------|:-------------:|------:|
 |exchange_for_trade|`binance`|Currently supports Binance only|
 |requests_frequency|`number`|Frequency of requests (get price, get balances, check indicators, check orders, etc ...), in seconds, default 1|
 |key|`text`|Binance API key|
