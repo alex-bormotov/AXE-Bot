@@ -55,7 +55,9 @@
 
 *  [Docker](#docker)
 
+
 *  [Ubuntu](#ubuntu)
+
 
 *  [Windows](FAQ.md#i-want-to-install-the-bot-on-windows)
 
