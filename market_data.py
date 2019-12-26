@@ -100,7 +100,7 @@ def get_bars(symbol, interval):
 
     except Exception as e:
         if show_error == "YES":
-            notificator(str(e) + 'from get_bars' + 'df' + str(df))
+            notificator(str(e) + ' from get_bars' + ' df ' + str(df))
 
 
 # GET PRICE FROM BINANCE (CCXT):
