@@ -1,5 +1,7 @@
 import ccxt
 from config import get_config
+from notification import notificator
+
 
 show_error = "YES"
 
