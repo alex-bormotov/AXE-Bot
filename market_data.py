@@ -4,7 +4,6 @@ import requests
 import pandas as pd
 import datetime as dt
 from time import sleep
-from datetime import timedelta
 from notification import notificator
 from requests.adapters import HTTPAdapter
 from exchange import api_requests_frequency
@@ -42,12 +41,12 @@ def check_coin_price(coin_pair_for_get_bars):
                 else:
                     time.sleep(api_requests_frequency)
                     continue
-        except Exception as e:
+        except Exception:
             pass
 
     while True:
         price = get_price()
-        if price != None:
+        if price is not None:
             return(price)
             break
         else:
@@ -72,8 +71,8 @@ def get_bars(symbol, interval):
     if interval == "1d":
         periods_seconds = 86400
 
-    user_agent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36"
-    url = f"https://api.cryptowat.ch/markets/binance/{symbol.lower()}/ohlc?periods={periods_seconds}"
+    user_agent = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/35.0.1916.47 Safari/537.36'
+    url = f'https://api.cryptowat.ch/markets/binance/{symbol.lower()}/ohlc?periods={periods_seconds}'
     req_session = requests.Session()
     req_session.headers.update({"User-Agent": user_agent})
     req_session.mount(url, HTTPAdapter(max_retries=3))
