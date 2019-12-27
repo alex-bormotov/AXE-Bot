@@ -8,7 +8,6 @@ from exchange import exchange, api_requests_frequency
 from market_data import check_coin_price
 from config import get_config
 from balance import fetch_balance
-from human import number_for_human
 
 show_error = "YES"
 
@@ -108,13 +107,13 @@ def calculate_profit(coin_2):
 def make_order(coin_pair, type_ord, side, amount, price):
     try:
         symbol = coin_pair
-        type = type_ord  # "market" or "limit"
+        type_o = type_ord  # "market" or "limit"
         side = side  # "buy" or "sell"
         amount = amount
         price = price
         params = {}
         order = (symbol, type, side, amount, price, params)
-        order = exchange.create_order(symbol, type, side, amount, price, params)
+        order = exchange.create_order(symbol, type_o, side, amount, price, params)
         return order
 
     except ccxt.NetworkError as e:
