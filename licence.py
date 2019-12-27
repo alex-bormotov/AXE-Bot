@@ -1,12 +1,8 @@
 import datetime as dt
-import time
 import hashlib
-import json
 import requests
 from config import get_config, write_config
-from notification import notificator
-from time import sleep
-from datetime import datetime, timedelta
+from datetime import timedelta
 from cryptography.fernet import Fernet
 from config import get_billig_url
 from secrets import token_urlsafe
@@ -89,7 +85,7 @@ def check_licence_hash():
 
     global licence_hash
 
-    if licence_hash == None:
+    if licence_hash is None:
         licence_hash = hash_licence()
         password, salt = licence_hash.split(":")
         return (
@@ -119,7 +115,7 @@ def compare_licence_hashes_is_same():
     bot_hash_dict = requests.get(endpoint_for_get_licence_time, headers=headers_access, verify=True).json()
     bot_hash_on_billing = bot_hash_dict["users"][0]["bot_hash"]
 
-    if bot_hash_on_billing == None:
+    if bot_hash_on_billing is None:
         write_bot_hash_if_null()
         bot_hash_dict = requests.get(endpoint_for_get_licence_time, headers=headers_access, verify=True).json()
         bot_hash_on_billing = bot_hash_dict["users"][0]["bot_hash"]
@@ -170,7 +166,7 @@ def get_encrypted_licence_time(auth_token_access):
     bot_licence = requests.get(endpoint_for_get_licence_time, headers=headers_access, verify=True).json()
     ecnrypted_licence_time = bot_licence["users"][0]["bot_licence"]
 
-    if ecnrypted_licence_time == None:
+    if ecnrypted_licence_time is None:
         return "Null"
     else:
         key = secret_for_encruption_licence_time + show_bot_id()
@@ -193,7 +189,7 @@ def decrypt_licence_time():
             ecnrypted_licence_time = get_encrypted_licence_time(auth_token_access)
             return ecnrypted_licence_time
 
-    except requests.exceptions.RequestException as e:
+    except requests.exceptions.RequestException:
         return "Null"
 
 
@@ -202,7 +198,7 @@ def check_licence_is_expire():
 
     return False
 
-    # if compare_licence_hashes_is_same() == False or decrypt_licence_time() == "Null":
+    # if compare_licence_hashes_is_same() is False or decrypt_licence_time() == "Null":
     #     return True
     # else:
     #     if dt.datetime.utcnow() > dt.datetime.fromisoformat(decrypt_licence_time()):
