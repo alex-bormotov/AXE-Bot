@@ -1,26 +1,22 @@
-import json
 import requests
 from notification import notificator
 from config import get_billig_url
 
 
-info_messages = None
-
+inf_messages = None
 messages_url = "/messages"
 
 def info_messages():
-
-    global info_messages
-
+    global inf_messages
     try:
         x = requests.get(get_billig_url() + messages_url).json()
-        if x == info_messages:
+        if x == inf_messages:
             pass
         else:
-            info_messages = x
+            inf_messages = x
 
             info = []
-            for i in info_messages["messages"]:
+            for i in inf_messages["messages"]:
                 for k, v in i.items():
                     if k == "info":
                         info.append(v)
@@ -34,10 +30,8 @@ def info_messages():
 
 
 def adv_messages():
-
     try:
         adv_messages = requests.get(get_billig_url() + messages_url).json()
-
         adv = []
         for i in adv_messages["messages"]:
             for k, v in i.items():
