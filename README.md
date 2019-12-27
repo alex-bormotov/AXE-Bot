@@ -1,4 +1,3 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/6ffb199f508b4d47969b766799d47438)](https://www.codacy.com/manual/alex-bormotov/AXE-Bot?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=alex-bormotov/AXE-Bot&amp;utm_campaign=Badge_Grade)
 # AXE Bot - Crypto Trading Bot for Binance.com
 ![AXE BOT](data/diagram.png)
 
