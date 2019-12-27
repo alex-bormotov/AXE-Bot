@@ -1,9 +1,4 @@
-import ccxt
 import time
-import pandas as pd
-import numpy as np
-import datetime as dt
-from time import sleep
 from config import get_config
 from market_data import check_coin_price, get_bars
 from notification import notificator
@@ -59,10 +54,8 @@ def bollingerband(coin_pair_for_get_bars, timeframe):
 
             return bollingerband_low, bollingerband_up
 
-        except Exception as e:
+        except Exception:
             pass
-            # if show_error == "YES":
-            #     notificator(str(e) + ' from bollingerband')
 
     while True:
         bb = get_bb()
@@ -91,10 +84,8 @@ def rsi(coin_pair_for_get_bars, timeframe):
 
             return rsi_now
 
-        except Exception as e:
+        except Exception:
             pass
-            # if show_error == "YES":
-            #     notificator(str(e) + ' from rsi')
 
     while True:
         rsi_now = get_rsi()
@@ -116,8 +107,6 @@ def get_signals_from_external_system():
 
 
 def get_indicators_signal(coin, coin_2):
-
-    coin_pair = coin + "/" + coin_2
     coin_pair_for_get_bars = (
         coin + coin_2
     )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
@@ -302,7 +291,6 @@ def get_indicators_signal(coin, coin_2):
 
 
 def get_indicators_signal_sell(coin, coin_2, price_buy):
-    coin_pair = coin + "/" + coin_2
     coin_pair_for_get_bars = (
         coin + coin_2
     )  # another format(ETHBTC) then coin_pair(ETH/BTC) for ccxt
