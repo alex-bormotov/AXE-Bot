@@ -26,14 +26,14 @@ def demo_or_full(stake_per_trade, coin_2):
         if (
             coin_2 == "BTC"
             and stake_per_trade > stake_demo_btc
-            and check_licence_is_expire() == True
+            and check_licence_is_expire() is True
         ):
             notificator(demo_message)
             return stake_demo_btc
 
         if (
             coin_2 in "ETH, BNB, XRP, USDT, TUSD, PAX, USDS, USDC"
-            and check_licence_is_expire() == True
+            and check_licence_is_expire() is True
         ):
             notificator(demo_message)
             sys.exit()
