@@ -73,7 +73,7 @@ def discord_send_message(notification):
     )
 
     try:
-        connection = http.client.HTTPSConnection("discordapp.com")
+        connection = http.client.HTTPSConnection("https://discordapp.com")
         connection.request(
             "POST",
             webhookurl,
