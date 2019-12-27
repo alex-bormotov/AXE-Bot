@@ -7,10 +7,9 @@ from demo import demo_or_full
 from licence import check_licence_is_expire
 from message import adv_messages
 
+
 show_error = "YES"
-
 exchange = exchange()
-
 minimal_order_size_btc = 0.001
 minimal_order_size_eth = 0.01
 minimal_order_size_bnb = 0.1
@@ -24,19 +23,14 @@ def get_stake_size(coin_2):
     if get_config()["use_all_balance"] == "YES":
         notificator("We will use all " + str(coin_2) + " balance for trade")
         return demo_or_full(fetch_balance(coin_2), coin_2)
-
     else:
         return demo_or_full(float(get_config()["stake_per_trade"]), coin_2)
 
 
-
-
 def check_balance_before_start(coin, stake_per_trade):
-
     balance = fetch_balance(coin)
-
-    if balance >= stake_per_trade and minimum_order_size(coin, stake_per_trade) == True:
-        if check_licence_is_expire() == True:
+    if balance >= stake_per_trade and minimum_order_size(coin, stake_per_trade) is True:
+        if check_licence_is_expire():
             adv_messages()
         notificator("You have " + number_for_human(balance) + " " + str(coin))
         notificator(
@@ -46,7 +40,7 @@ def check_balance_before_start(coin, stake_per_trade):
         return True
 
     else:
-        if check_licence_is_expire() == True:
+        if check_licence_is_expire():
             adv_messages()
         notificator("You have " + number_for_human(balance) + " " + str(coin))
         notificator("Stake " + number_for_human(stake_per_trade) + " " + str(coin))
