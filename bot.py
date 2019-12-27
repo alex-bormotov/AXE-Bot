@@ -1,6 +1,3 @@
-import time
-from time import sleep
-from datetime import datetime
 from config import (
     get_config,
     check_config_error
@@ -10,16 +7,11 @@ from notification import notificator
 from trader import trail_buy
 from error_handling import fetch_ticker
 from indicators import get_indicators_signal
-from licence import show_bot_id, registration_on_billing
-from message import info_messages
+from licence import show_bot_id
 
 show_error = "YES"
 
 check_config_error()
-
-#registration_on_billing()
-
-#info_messages()
 
 coin = get_config()["coin"].upper()
 coin_2 = get_config()["coin_2"].upper()
@@ -46,7 +38,7 @@ def main():
         balance_coin_2_is_enough = check_balance_before_start(
             coin_2, stake_per_trade
         )
-        if balance_coin_2_is_enough == True:
+        if balance_coin_2_is_enough is True:
 
             tiker = fetch_ticker(coin_pair)
             if tiker == coin_pair:
