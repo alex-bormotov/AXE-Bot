@@ -9,7 +9,6 @@ from orders import (
     calculate_amount_to_sell,
     make_order,
     fetch_filled_price_by_id,
-    fetch_order_cost_by_id,
     calculate_profit,
     check_order_status_by_id,
     fetch_full_closed_order_by_id,
@@ -157,7 +156,7 @@ def trail_buy(coin, coin_2, stake_per_trade):
                         buy_order = make_order(
                             coin_pair, "market", "buy", amount_to_buy, None
                         )
-                        if buy_order != None:
+                        if buy_order is not None:
                             break
                         else:
                             continue
@@ -424,7 +423,7 @@ def start_again(coin_pair, coin, coin_2):
             notificator("BNB balance " + str(fetch_balance("BNB")))
 
         if (
-            check_balance_before_start(coin_2, stake_per_trade) == True
+            check_balance_before_start(coin_2, stake_per_trade) is True
             and fetch_ticker(coin_pair) == coin_pair
         ):
             if start_buy_trail_on_buy_signal == "YES":
