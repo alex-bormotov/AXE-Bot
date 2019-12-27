@@ -2,7 +2,7 @@ FROM python:3.7.5-slim-buster
 
 RUN apt-get update \
     && apt-get -y install curl build-essential libssl-dev \
-    && pip3 install --upgrade pip
+    && pip3 install --upgrade pip \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
