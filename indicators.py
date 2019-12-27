@@ -1,4 +1,5 @@
 import time
+from time import sleep
 from config import get_config
 from market_data import check_coin_price, get_bars
 from notification import notificator
