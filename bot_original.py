@@ -1,6 +1,3 @@
-import time
-from time import sleep
-from datetime import datetime
 from config import (
     get_config,
     check_config_error
@@ -46,7 +43,7 @@ def main():
         balance_coin_2_is_enough = check_balance_before_start(
             coin_2, stake_per_trade
         )
-        if balance_coin_2_is_enough == True:
+        if balance_coin_2_is_enough is True:
 
             tiker = fetch_ticker(coin_pair)
             if tiker == coin_pair:
