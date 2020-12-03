@@ -39,8 +39,6 @@
 
 > [Update](#Update)
 
-> [Say Me Thanks :)](#Donate)
-
 ---
 
 #### Important
@@ -364,17 +362,3 @@ Common cooldown (sec) | 7200
 > While using SELL on sell signal you may insurance risk and set stop loss `use_stop_loss_while_start_sell_on_sell_signal`,  `stop_loss_percent_for_start_sell_on_sell_signal` - WATCH OUT!
 
 > If you don't using SELL signal - stop loss will be equal (sell_trail_step), and will be changed after with `dynamic_trail_enable` help
-
----
-
-##### Donate
-
-> This is my second Python project
-
-> If my code was useful for you may buy me tea:
-
-> [My Binance Referal Link](https://www.binance.com/en/register?ref=35560900)
-
-> BTC 1LTwU8hVYxxpHUDf3wYNDjnS9kK4PDdtgT
-
-> ETH 0x23913F4ab3839a8b7bB987F348b8d974C045Dd17
